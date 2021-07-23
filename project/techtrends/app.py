@@ -37,6 +37,17 @@ def index():
     return render_template('index.html', posts=posts)
 
 
+# Health check
+@app.route('/healthz')
+def healthz():
+    response = app.response_class(
+        response=json.dumps({"result": "OK - healthy"}),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
+
 # Metrics
 @app.route('/metrics')
 def metrics():
