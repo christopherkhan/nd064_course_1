@@ -1,6 +1,6 @@
 FROM python:2.7
 LABEL maintainer="Christopher Khan"
-COPY ./project/techtrends /app
+COPY ./techtrends /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 RUN python init_db.py
