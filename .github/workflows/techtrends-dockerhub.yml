@@ -30,7 +30,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./project
-          file: ${{context}}/Dockerfile
           platforms: linux/amd64
           push: true
           tags: cjkhan/techtrends:latest
