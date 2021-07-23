@@ -1,4 +1,4 @@
-name: Docker Build and Push for Techtrends 
+name: Techtrends - Package with Docker 
 
 # trigger on push to main branch
 on:
@@ -29,8 +29,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./project/Dockerfile
+          context: ./project
+          file: ./Dockerfile
           platforms: linux/amd64
           push: true
           tags: cjkhan/techtrends:latest
