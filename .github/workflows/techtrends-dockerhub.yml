@@ -1,4 +1,4 @@
-name: Techtrends - Package with Docker 
+name: TechTrends - Package with Docker 
 
 # trigger on push to main branch
 on:
