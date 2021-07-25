@@ -1,8 +1,7 @@
 import sqlite3
-
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
-
+import logging
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -70,14 +69,17 @@ def metrics():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      return render_template('404.html'), 404
+        app.logger.info("Non existing article was accessed. 404 Page returned")
+        return render_template('404.html'), 404
     else:
-      return render_template('post.html', post=post)
+        app.logger.info(f"Article, '{post['title']}' retrieved!")
+        return render_template('post.html', post=post)
 
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info('The About Us page was retrieved')
     return render_template('about.html')
 
 
@@ -96,7 +98,7 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-
+            app.logger.info(f"New article '{title}' created!")
             return redirect(url_for('index'))
 
     return render_template('create.html')
@@ -104,4 +106,7 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(levelname)s:%(name)s: %(asctime)s, %(message)s',
+                        datefmt='%d/%b/%Y, %H:%M:%S')
     app.run(host='0.0.0.0', port='3111')
