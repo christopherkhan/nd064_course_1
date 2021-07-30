@@ -4,6 +4,7 @@ from werkzeug.exceptions import abort
 import logging
 import sys
 
+
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
@@ -27,6 +28,7 @@ def get_post(post_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 db_connections_count = 0
+
 
 # Define the main route of the web application 
 @app.route('/')
@@ -107,17 +109,21 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logger = logging.getLogger() 
-    logging.basicConfig(level=logging.DEBUG,
-                        format='%(levelname)s:%(name)s: %(asctime)s, %(message)s',
-                        datefmt='%d/%b/%Y, %H:%M:%S')
-    
-    # by default root logs to stderr; create handler for stdout
+    logger = logging.getLogger()
+    logger.handlers.clear()
+    logger.setLevel(logging.DEBUG)
+
+    log_format = '%(levelname)s:%(name)s: %(asctime)s, %(message)s'
+    date_format = '%d/%b/%Y, %H:%M:%S'
+
     sysout_handler = logging.StreamHandler(sys.stdout)
     sysout_handler.setLevel(logging.DEBUG)
-    sysout_format = logging.Formatter('%(levelname)s:%(name)s: %(asctime)s, %(message)s',
-                        datefmt='%d/%b/%Y, %H:%M:%S')
-    sysout_handler.setFormatter(sysout_format)
+    formatter = logging.Formatter(fmt=log_format, datefmt=date_format)
+    sysout_handler.setFormatter(formatter)
     logger.addHandler(sysout_handler)
 
+    syserr_handler = logging.StreamHandler(sys.stderr)
+    syserr_handler.setLevel(logging.DEBUG)
+    syserr_handler.setFormatter(formatter)
+    logger.addHandler(syserr_handler)
     app.run(host='0.0.0.0', port='3111')
