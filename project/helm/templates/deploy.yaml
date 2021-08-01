@@ -34,5 +34,3 @@ spec:
           httpGet:
             path: {{ .Values.readinessProbe.httpGet.path }}
             port: {{ .Values.containerPort }}
-
-        
