@@ -75,7 +75,7 @@ def post(post_id):
         app.logger.info("Non existing article was accessed. 404 Page returned")
         return render_template('404.html'), 404
     else:
-        app.logger.info(f"Article, '{post['title']}' retrieved!")
+        app.logger.info("Article, '{}' retrieved!".format(post['title']))
         return render_template('post.html', post=post)
 
 
@@ -101,7 +101,7 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-            app.logger.info(f"New article '{title}' created!")
+            app.logger.info("New article '{}' created!".format(title))
             return redirect(url_for('index'))
 
     return render_template('create.html')
@@ -110,7 +110,8 @@ def create():
 # start the application on port 3111
 if __name__ == "__main__":
     logger = logging.getLogger()
-    logger.handlers.clear()
+    logger.handlers = []
+    #logger.handlers.clear()
     logger.setLevel(logging.DEBUG)
 
     log_format = '%(levelname)s:%(name)s: %(asctime)s, %(message)s'
