@@ -1,9 +1,0 @@
-apiVersion: v1
-name: techtrends 
-description: set up techtrends deployment
-keywords:
-- techtrends 
-version: 1.0.0
-maintainers:
-- name: Christopher Khan
-  email: christopher.khan@sympatico.ca
