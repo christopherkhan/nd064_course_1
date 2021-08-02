@@ -10,9 +10,9 @@ spec:
   project: default
   source:
     helm: 
-      valuesFile: 
+      valueFiles: 
       - values-prod.yaml
     path: project/helm
-    repoURL: https://github.com/christopherkhan/nd064_course_1
+    repoURL: https://github.com/christopherkhan/nd064_course_1.git
     targetRevision: HEAD
   syncPolicy: {}
