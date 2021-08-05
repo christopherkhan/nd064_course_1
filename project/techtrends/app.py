@@ -72,7 +72,7 @@ def metrics():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        app.logger.info("Non existing article was accessed. 404 Page returned")
+        app.logger.error("Non existing article was accessed. 404 Page returned")
         return render_template('404.html'), 404
     else:
         app.logger.info("Article, '{}' retrieved!".format(post['title']))
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     logger.addHandler(sysout_handler)
 
     syserr_handler = logging.StreamHandler(sys.stderr)
-    syserr_handler.setLevel(logging.DEBUG)
+    syserr_handler.setLevel(logging.WARNING)
     syserr_handler.setFormatter(formatter)
     logger.addHandler(syserr_handler)
     app.run(host='0.0.0.0', port='3111')
